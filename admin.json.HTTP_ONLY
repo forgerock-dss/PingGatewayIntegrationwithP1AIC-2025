@@ -1,0 +1,11 @@
+{
+  "connectors": [{
+    "port": {HTTP_PORT}
+  }],
+  "session": {
+    "cookie": {
+      "sameSite": "none",
+      "secure": false
+    }
+  }
+}
