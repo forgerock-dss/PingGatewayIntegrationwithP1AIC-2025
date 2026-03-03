@@ -1,7 +1,7 @@
 # Deploying PingGateway (Standalone) with CDSSO and PingOne Advanced Identity Cloud (P1AIC)
 
 **Author:** Darinder S. Shokar -- Ping Identity\
-**Blog Post:** Coming Soon
+**Blog Post:** [Coming Soon](https://medium.com/@darinder.shokar/rapidly-deploying-pinggateway-with-pingone-advanced-identity-cloud-p1aic-a500d3734a63)
 
 ------------------------------------------------------------------------
 
