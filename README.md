@@ -1,84 +1,208 @@
-# Script to deploy a local PingGateway instance in Standalone mode to protect a Sample Application via CDSSO with PingOne Advanced Identity Cloud (P1AIC)
+# Deploying PingGateway (Standalone) with CDSSO and PingOne Advanced Identity Cloud (P1AIC)
 
-Written by Darinder S. Shokar - Ping Identity
+**Author:** Darinder S. Shokar -- Ping Identity\
+**Blog Post:** Coming Soon
 
-Accompanying blog post: XXXX
+------------------------------------------------------------------------
 
-# Pre-requisites
-* This script is Linux derivative specific.
-* Java 17 onwards must be installed.
-* Copy the PingGateway Standalone binary ZIP file from [here](https://backstage.forgerock.com/downloads/browse/ig/featured) to the target PingGateway host.
-* Copy the PingGateway Sample application JAR file from [here](https://backstage.forgerock.com/downloads/browse/ig/featured) to the target PingGateway host.
-* Assuming DNS is not used, the hosts files both on the client machine running the browser and on the IG host must be updated to map the IG and Sample App FQDNs to the IG IP address. Note the Sample App is deployed on the same host as IG just with a different alias. If the PingGateway IP was 172.168.1.10 then the hosts file entry might look like this:
-`172.168.1.10 pinggateway.test.com sample.test.com`
-* P1AIC must be configured with a Gateway agent, set with the correct redirect URIs and a user setup for login.
+## Overview
 
-# Description
-This script will:
- * Check the PingGateway target host can connect to the remote P1AIC or PingAM instance. If not exit
- * Check if PingGateway is already installed. If so stop if already running and delete the instance directory
- * Deploy PingGateway in the target directory
- * Configure PingGateway ports and setup a keystore if HTTPS is selected
- * Deploy the PingGateway Sample Application
- * Configure routes to the PingGateway Sample App to protect it via CDSSO with P1AIC
-  
-# Execution
+This repository provides a simple automation script to:
 
-1. Create a test user in ForgeRock Identity Cloud:
- * Login to the ForgeRock Identity Cloud 
- * Select the appropriate realm on the top left dropdown
- * Select the Identities drop down on the left menu then select Manage
- * Hit the New alpha/bravo realm user button, complete the form and hit save.
+-   Deploy **PingGateway (Standalone Mode)**
+-   Deploy the **PingGateway Sample Application**
+-   Protect the sample application using **Cross-Domain Single Sign-On
+    (CDSSO)**
+-   Integrate with **PingOne Advanced Identity Cloud (P1AIC)**
 
-2. Create a profile for PingGateway:
- * Click Gateways and Agents on the left menu
- * Hit the blue New Gateway/Agent, select Identity Gateway and finally Save Profile
- * Enter an ID (for example `pinggateway_agent_cdsso`). This maps to the `IG_AGENT_ID` parmameter in the script
- * Enter a password. This maps to the `IG_AGENT_SECRET` parameter in the script 
- * Hit Save
- * Enter the Redirect URLs. For just http enter `http://[FQDN and PORT of PingGateway HOST]/home/cdsso/redirect` for HTTPS enter `https://[FQDN and PORT of PingGateway HOST]/home/cdsso/redirect`, e.g. http://pinggateway.test.com:9000/home/cdsso/redirect and/or HTTPS https://pinggateway.test.com:9443/home/cdsso/redirect 
- * Hit Save
+The script is intended for learning, proof-of-concept environments,
+developer enablement, and demonstrations.
 
-3. Modify the parameters from lines 11-30 in the `install_ping_gateway_P1AIC.sh` script to reflect your environment. 
+------------------------------------------------------------------------
 
-4. Execute the script:
+## Repository Contents
 
-**NOTE - For P1AIC due to the need for samesite cookie support deploy in HTTPS mode**
+When you download this repository, the following files are already
+included:
 
-```sh
-Execute using ./install_ig_fidc.sh http|https. For example ./install_ping_gateway_P1AIC.sh https
-```
-5. On completion. Hit the following https://pinggateway.test.com:9443/home/cdsso if configured from P1AIC or http://ig.test.com:9000/home/cdsso for HTTP or standalone PingAM. If the ports were modified the script will output the correct URLs to use.
+-   `install_ping_gateway_P1AIC.sh`
+-   `admin.json.HTTP_ONLY`
+-   `admin.json.HTTPS`
+-   `static-resources.json`
+-   `cdsso-idc.json`
 
-**NOTE - If you have already logged in to P1AIC as part of step 1 ensure you close the browser and start a fresh one or logout. Otherwise the following error will result:** 
-```sh
+You must download separately:
+
+-   **PingGateway Standalone ZIP**
+-   **PingGateway Sample Application JAR**
+
+Download from:\
+https://backstage.forgerock.com/downloads/browse/ig/featured
+
+Place both files in the same directory as the script.
+
+------------------------------------------------------------------------
+
+## Prerequisites
+
+-   Linux or macOS
+-   Java 17 or later
+-   Access to a PingOne Advanced Identity Cloud (P1AIC) tenant
+
+------------------------------------------------------------------------
+
+## Host Configuration
+
+If DNS is not used, update the `/etc/hosts` file on:
+
+-   The PingGateway host
+-   The client machine running the browser
+
+Example:
+
+172.168.1.10 pinggateway.test.com sample.test.com
+
+The Sample Application runs on the same host as PingGateway using a
+different hostname alias.
+
+------------------------------------------------------------------------
+
+## P1AIC Configuration
+
+### Create a Test User
+
+1.  Log in to ForgeRock Identity Cloud
+2.  Select the appropriate realm
+3.  Navigate to **Identities → Manage**
+4.  Create a new user
+5.  Save
+
+### Create a Gateway Agent
+
+1.  Navigate to **Gateways and Agents**
+2.  Click **New Gateway/Agent**
+3.  Select **Identity Gateway**
+4.  Enter:
+    -   Agent ID (e.g. `pinggateway_agent_cdsso`)
+    -   Password
+5.  Save
+
+Ensure these values match the script configuration:
+
+-   `AGENT_ID`
+-   `AGENT_SECRET`
+
+### Configure Redirect URIs
+
+HTTP:
+
+http://pinggateway.test.com:9000/home/cdsso/redirect
+
+HTTPS:
+
+https://pinggateway.test.com:9443/home/cdsso/redirect
+
+------------------------------------------------------------------------
+
+## Script Configuration
+
+Open:
+
+install_ping_gateway_P1AIC.sh
+
+Modify the configuration section to reflect your environment
+(installation path, hostnames, ports, realm, agent credentials).
+
+------------------------------------------------------------------------
+
+## Execution
+
+For P1AIC deployments, use HTTPS mode due to SameSite cookie
+requirements.
+
+Run:
+
+./install_ping_gateway_P1AIC.sh https
+
+or
+
+./install_ping_gateway_P1AIC.sh http
+
+------------------------------------------------------------------------
+
+## Accessing the Application
+
+HTTPS mode:
+
+https://pinggateway.test.com:9443/home/cdsso
+
+HTTP mode:
+
+http://pinggateway.test.com:9000/home/cdsso
+
+If you modified ports, the script output will display the correct URL.
+
+------------------------------------------------------------------------
+
+## Important Login Note
+
+If you were already logged into P1AIC during setup, close the browser or
+log out first.
+
+Otherwise you may receive:
+
 #error_description=Resource%20Owner%20Session%20not%20valid&error=access_denied
-```
 
-6. When either of the above URLs are hit, the browser will redirect to P1AIC for authentication (use the test account configured in step 1). On successful authentication the browser will redirect back to PingGateway and render the Sample App page as below:
+------------------------------------------------------------------------
 
-![picture](./images/Sample_App_Success_Page.png)
+## Service Control
 
-7. After install to stop/start PingGateway and the Sample app use:
-* Stop - `./install_ping_gateway_P1AIC.sh stop`
-* Start - `./install_ping_gateway_P1AIC.sh start`
+Stop services:
 
+./install_ping_gateway_P1AIC.sh stop
 
-8. The installation will deploy in what's known as Production Mode. To enable Development mode (to for example view the PingGateway Studio editor) and to learn more about each mode check out [this](https://docs.pingidentity.com/pinggateway/latest/configure/operating-modes.html) link. Hint - requires modification to admin.json. 
+Start services:
 
+./install_ping_gateway_P1AIC.sh start
 
-10. To remove the PingGateway and Sample installation, stop PingGateway and the Sample App using the steps above and delete the `$INSTALL_LOC` location
+------------------------------------------------------------------------
 
-**To read more check out [this](https://docs.pingidentity.com/pinggateway/latest/aic/cdsso.html) link.**
+## Operating Modes
 
-# Error checking
-The script will check the following:
-* The PingGateway ZIP file is present on the target filesystem.
-* The PingGateway Sample App JAR file is present on the target filesystem.
-* The PingGateway host FQDN is reachable.
-* The Sample App FQDN is reachable.
-* The target host can connect out to the P1AIC tenant.
+The script deploys PingGateway in Production Mode by default.
 
+To enable Development Mode (e.g. for PingGateway Studio), modify
+`admin.json`.
+
+Documentation:\
+https://docs.pingidentity.com/pinggateway/latest/configure/operating-modes.html
+
+------------------------------------------------------------------------
+
+## Uninstall
+
+Stop services:
+
+./install_ping_gateway_P1AIC.sh stop
+
+Then delete the installation directory defined in the script.
+
+------------------------------------------------------------------------
+
+## Further Reading
+
+CDSSO Documentation:\
+https://docs.pingidentity.com/pinggateway/latest/aic/cdsso.html
+
+PingGateway Documentation:\
+https://docs.pingidentity.com/pinggateway/latest/
+
+------------------------------------------------------------------------
+
+This repository provides a clean, reproducible way to deploy PingGateway
+locally and understand CDSSO integration with P1AIC.
+
+------------------------------------------------------------------------
 
 # Script Output
 ```sh
