@@ -94,13 +94,13 @@ Ensure these values match the script configuration:
 
 ### Configure Redirect URIs
 
-HTTP:
-
-http://pinggateway.test.com:9000/home/cdsso/redirect
-
 HTTPS:
 
 https://pinggateway.test.com:9443/home/cdsso/redirect
+
+HTTP:
+
+http://pinggateway.test.com:9000/home/cdsso/redirect
 
 ------------------------------------------------------------------------
 
@@ -108,10 +108,10 @@ https://pinggateway.test.com:9443/home/cdsso/redirect
 
 Open:
 
-install_ping_gateway_P1AIC.sh
+`install_ping_gateway_P1AIC.sh`
 
-Modify the configuration section to reflect your environment
-(installation path, hostnames, ports, realm, agent credentials).
+Modify the configuration section lines 11-30 to reflect your environment
+(installation path, hostnames, ports, realm, agent credentials, etc).
 
 ------------------------------------------------------------------------
 
@@ -122,11 +122,11 @@ requirements.
 
 Run:
 
-./install_ping_gateway_P1AIC.sh https
+`./install_ping_gateway_P1AIC.sh https`
 
 or
 
-./install_ping_gateway_P1AIC.sh http
+`./install_ping_gateway_P1AIC.sh http`
 
 ------------------------------------------------------------------------
 
@@ -134,13 +134,17 @@ or
 
 HTTPS mode:
 
-https://pinggateway.test.com:9443/home/cdsso
+`https://pinggateway.test.com:9443/home/cdsso`
 
 HTTP mode:
 
-http://pinggateway.test.com:9000/home/cdsso
+`http://pinggateway.test.com:9000/home/cdsso`
 
 If you modified ports, the script output will display the correct URL.
+
+On success the sample application will display:
+
+![picture](./images/Sample_App_Success_Page.png)
 
 ------------------------------------------------------------------------
 
@@ -151,19 +155,19 @@ log out first.
 
 Otherwise you may receive:
 
-#error_description=Resource%20Owner%20Session%20not%20valid&error=access_denied
+`#error_description=Resource%20Owner%20Session%20not%20valid&error=access_denied`
 
 ------------------------------------------------------------------------
 
 ## Service Control
 
-Stop services:
+Stop the PingGateway and Sample applications:
 
-./install_ping_gateway_P1AIC.sh stop
+`./install_ping_gateway_P1AIC.sh stop`
 
-Start services:
+Start the PingGateway and Sample applications:
 
-./install_ping_gateway_P1AIC.sh start
+`./install_ping_gateway_P1AIC.sh start`
 
 ------------------------------------------------------------------------
 
