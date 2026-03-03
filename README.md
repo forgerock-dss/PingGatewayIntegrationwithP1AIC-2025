@@ -148,6 +148,44 @@ On success the sample application will display:
 
 ------------------------------------------------------------------------
 
+# Script Output
+```sh
+=== Environment check ===
+Script bundle: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/PingGatewayIntegrationwithP1AIC-main
+Install dir:   /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
+
+This will:
+ - Install PingGateway (https)
+ - Deploy the sample app
+ - Configure CDSSO route for P1AIC
+ - Install into: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
+
+Proceed?
+Enter Y to continue: Y
+Removing existing install: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
+=== Deploying PingGateway ===
+Bootstrap start/stop to initialise directories
+Stopping processes by pattern: openig
+=== Configuring PingGateway (https) ===
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 90 days
+	for: CN=pinggateway.test.com, O=Example Corp, C=Ping
+Configured HTTPS on port 9443
+=== Deploying Sample App ===
+=== Configuring routes ===
+=== Starting Sample App ===
+=== Stopping Sample App ===
+Stopping processes by pattern: PingGateway-sample-application-2025.11.1.jar
+Sample: http://sample.test.com:9001/home
+Log:    /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment/sample_app/console.log
+=== Starting PingGateway ===
+=== Stopping PingGateway ===
+Log: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment/identity-gateway-2025.11.1/ping_gateway_config/logs/console.out
+Access: https://pinggateway.test.com:9443/home/cdsso
+Done.
+```
+
+------------------------------------------------------------------------
+
 ## Important Login Note
 
 If you were already logged into P1AIC during setup, close the browser or
@@ -207,39 +245,3 @@ This repository provides a clean, reproducible way to deploy PingGateway
 locally and understand CDSSO integration with P1AIC.
 
 ------------------------------------------------------------------------
-
-# Script Output
-```sh
-=== Environment check ===
-Script bundle: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/PingGatewayIntegrationwithP1AIC-main
-Install dir:   /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
-
-This will:
- - Install PingGateway (https)
- - Deploy the sample app
- - Configure CDSSO route for P1AIC
- - Install into: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
-
-Proceed?
-Enter Y to continue: Y
-Removing existing install: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment
-=== Deploying PingGateway ===
-Bootstrap start/stop to initialise directories
-Stopping processes by pattern: openig
-=== Configuring PingGateway (https) ===
-Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 90 days
-	for: CN=pinggateway.test.com, O=Example Corp, C=Ping
-Configured HTTPS on port 9443
-=== Deploying Sample App ===
-=== Configuring routes ===
-=== Starting Sample App ===
-=== Stopping Sample App ===
-Stopping processes by pattern: PingGateway-sample-application-2025.11.1.jar
-Sample: http://sample.test.com:9001/home
-Log:    /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment/sample_app/console.log
-=== Starting PingGateway ===
-=== Stopping PingGateway ===
-Log: /<PATH>/PingGatewayIntegrationwithP1AIC-2025/pingGatewayDeployment/identity-gateway-2025.11.1/ping_gateway_config/logs/console.out
-Access: https://pinggateway.test.com:9443/home/cdsso
-Done.
-```
