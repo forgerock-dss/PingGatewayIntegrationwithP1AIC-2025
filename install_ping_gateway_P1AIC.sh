@@ -9,24 +9,24 @@ IFS=$'\n\t'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # --- modify these parameters to match your environment ---
-PING_ZIP="${SCRIPT_DIR}/PingGateway-2025.11.1.zip"
-SAMPLE_JAR_SRC="${SCRIPT_DIR}/PingGateway-sample-application-2025.11.1.jar"
-VERSION="identity-gateway-2025.11.1"
-BASE_INSTALL="/Users/darinder.shokar/Documents/Scripts/VM_Scripts/pingGatewayAICIntegration/pingGatewayDeployment"
+PING_ZIP="${SCRIPT_DIR}/XXXXXXXXXX" #For example ${SCRIPT_DIR}/PingGateway-2025.11.1.zip
+SAMPLE_JAR_SRC="${SCRIPT_DIR}/XXXXXXXXXX" #For example ${SCRIPT_DIR}/PingGateway-sample-application-2025.11.1.jar
+VERSION="identity-gateway-XXXXXXXXXX" #For example for /PingGateway-2025.11.1.zip use identity-gateway-2025.11.1
+BASE_INSTALL="XXXXXXXXXXX" #For example /opt/pingGatewayAICIntegration-2025/pingGatewayDeployment"
 
 HOST="pinggateway.test.com"
 SAMPLE_HOST="sample.test.com"
-AM_HOST="https://openam-darinder-wforce.forgeblocks.com/am"
-REALM="/alpha"
+AM_HOST="https://openam-<TENANT>/am" #replace the <TENANT> with your P1AIC tenant FQDN
+REALM="/alpha" #If needed replace with your realm
 
 AGENT_ID="pinggateway_agent_cdsso"
-AGENT_SECRET="password"
+AGENT_SECRET="XXXXXXXXXX" #Set the Secret as configured in the Gateway configuration in P1AIC
 
 HTTP_PORT=9000
 HTTPS_PORT=9443
 SAMPLE_HTTP=9001
 SAMPLE_HTTPS=9444
-KEYSTORE_PASS="password"
+KEYSTORE_PASS="XXXXXXXXXX" #Set a secure keystore password
 # --- end modify config ---
 
 # --- derived paths ---
